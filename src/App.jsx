@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useReducer, useState } from 'react';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import ChartsPanel from './components/ChartsPanel';
 import Filters from './components/Filters';
 import MovementForm from './components/MovementForm';
@@ -12,6 +12,7 @@ import { exportAsCsv, exportAsJson } from './utils/export';
 import { loadProfiles, loadState, saveProfiles, saveState } from './utils/storage';
 
 export default function App() {
+  const location = useLocation();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [profiles, setProfiles] = useState(['General']);
   const [editingMovement, setEditingMovement] = useState(null);
@@ -115,6 +116,12 @@ export default function App() {
       </aside>
 
       <main>
+        {location.pathname === '/' && (
+          <div className="floating-export" aria-label="Exportar movimientos">
+            <button onClick={() => exportAsCsv(state.movements)}>Exportar CSV</button>
+            <button onClick={() => exportAsJson(state.movements)}>Exportar JSON</button>
+          </div>
+        )}
         <Routes>
           <Route
             path="/"
@@ -129,10 +136,6 @@ export default function App() {
                   filters={state.filters}
                   onChange={(payload) => dispatch({ type: 'SET_FILTERS', payload })}
                 />
-                <div className="card export-row">
-                  <button onClick={() => exportAsCsv(state.movements)}>Exportar CSV</button>
-                  <button onClick={() => exportAsJson(state.movements)}>Exportar JSON</button>
-                </div>
                 <MovementList
                   movements={visibleMovements}
                   onEdit={setEditingMovement}
