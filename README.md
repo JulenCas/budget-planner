@@ -27,4 +27,4 @@ npm run dev
 - `src/utils/storage.js`: persistencia local.
 
 ## Embebido
-Puede publicarse como SPA estática (`npm run build`) y embeberse en un `iframe` dentro de la web de Javier.
+Puede publicarse como SPA estática (`npm run build`) y embeberse en un `iframe` dentro de una web.
