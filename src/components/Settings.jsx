@@ -23,19 +23,19 @@ export default function Settings({ profiles, activeProfile, onProfileChange, onC
         </label>
         <label>
           Nuevo perfil
-          <div className="inline">
-            <input value={newProfile} onChange={(e) => setNewProfile(e.target.value)} />
-            <button
-              onClick={() => {
-                if (!newProfile.trim()) return;
-                onCreateProfile(newProfile.trim());
-                setNewProfile('');
-              }}
-            >
-              Añadir
-            </button>
-          </div>
+          <input value={newProfile} onChange={(e) => setNewProfile(e.target.value)} />
         </label>
+      </div>
+      <div className="actions card-actions">
+        <button
+          onClick={() => {
+            if (!newProfile.trim()) return;
+            onCreateProfile(newProfile.trim());
+            setNewProfile('');
+          }}
+        >
+          Añadir perfil
+        </button>
       </div>
 
       <h3>Presupuesto por categoría</h3>
@@ -58,6 +58,8 @@ export default function Settings({ profiles, activeProfile, onProfileChange, onC
           Presupuesto máximo (€)
           <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
         </label>
+      </div>
+      <div className="actions card-actions">
         <button
           onClick={() => {
             if (!amount) return;
